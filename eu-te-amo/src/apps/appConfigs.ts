@@ -1,15 +1,20 @@
+import React from "react";
 import MeuComputador from "../components/Apps/My Computer/MyComputer";
-import myComputer from "../assets/icons/my-computer-icon.png";
 import LoveQuiz from "../components/Quiz/Quiz";
+import WindowsMediaPlayer from "../components/Windows Media Player/WindowsMediaPlayer";
 
-export type AppKeys = "meuComputador" | "quiz";
+import myComputerIcon from "../assets/icons/my-computer-icon.png";
+import loveIcon from "../assets/icons/love.png";
+import audioIcon from "../assets/icons/audio.png";
+
+export type AppKeys = "meuComputador" | "quiz" | "wmp";
 
 export interface AppConfig {
   id: AppKeys;
   label: string;
   title: string;
   icon: string;
-  Component: React.ComponentType;
+  Component: React.ComponentType<Record<string, unknown>>;
 }
 
 export const APPS: AppConfig[] = [
@@ -17,14 +22,23 @@ export const APPS: AppConfig[] = [
     id: "meuComputador",
     label: "Meu Computador",
     title: "Meu Computador",
-    icon: myComputer,
-    Component: MeuComputador,
+    icon: myComputerIcon,
+    Component: MeuComputador as React.ComponentType<Record<string, unknown>>,
   },
   {
     id: "quiz",
     label: "Quiz de Amor",
     title: "Quiz de Amor",
-    icon: myComputer,
-    Component: LoveQuiz,
+    icon: loveIcon,
+    Component: LoveQuiz as React.ComponentType<Record<string, unknown>>,
+  },
+  {
+    id: "wmp",
+    label: "Media Player",
+    title: "Windows Media Player",
+    icon: audioIcon,
+    Component: WindowsMediaPlayer as unknown as React.ComponentType<
+      Record<string, unknown>
+    >,
   },
 ];

@@ -1,0 +1,136 @@
+.container {
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.videoWrapper {
+  flex: 1;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+}
+
+.videoElement {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.videoElement::cue {
+  background: rgba(0, 0, 0, 0.7);
+  color: #33ffcc;
+  font-family: "Tahoma", sans-serif;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.controls {
+  height: 45px;
+  background: linear-gradient(to bottom, #7292d1, #2b57b1);
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #ffffff44;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.songTitleContainer {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.songTitle {
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  font-family: Tahoma, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.timeCounter {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  color: #00ff00;
+  background: #000;
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px inset #ffffff33;
+  white-space: nowrap;
+  min-width: 140px;
+  text-align: center;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 5px #00ff0033;
+}
+
+.playPauseBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background: radial-gradient(circle, #4e7dcf, #1e4ea1);
+  color: white;
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progressContainer {
+  flex: 2;
+  min-width: 100px;
+  position: relative;
+  height: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.seekBar {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  opacity: 0;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 10px;
+  background: #000;
+  border: 1px solid #ffffff33;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(to bottom, #45f248, #1a8f1d, #45f248);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}

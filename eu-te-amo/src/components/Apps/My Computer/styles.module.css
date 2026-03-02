@@ -17,13 +17,15 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  height: 100%;
+  max-width: 100vw;
+  align-content: flex-start;
 }
 
 .driveItem {
   display: flex;
   align-items: center;
-  gap: 10px;
-  width: 200px;
+  gap: 12px;
 }
 
 .driveIcon {

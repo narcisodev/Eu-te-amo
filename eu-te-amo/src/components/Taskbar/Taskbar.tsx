@@ -3,17 +3,24 @@ import styles from "./styles.module.css";
 import windowsxp from "../../assets/icons/windows-xp-icon.png";
 import { type AppKeys, APPS } from "../../apps/appConfigs";
 
+import mediaPlayer from "../../assets/icons/media-player.png";
+
 interface TaskbarProps {
   openedApps: AppKeys[];
   onOpenApp: (id: AppKeys) => void;
+  onToggleMinimize: (id: AppKeys) => void;
+  focusedAppId: AppKeys | null;
 }
 
-const Taskbar = ({ openedApps, onOpenApp }: TaskbarProps) => {
+const Taskbar = ({
+  openedApps,
+  onOpenApp,
+  onToggleMinimize,
+  focusedAppId,
+}: TaskbarProps) => {
   const [time, setTime] = useState(
     new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
   );
-
-  const FIXED_APPS: AppKeys[] = ["meuComputador"];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -27,6 +34,8 @@ const Taskbar = ({ openedApps, onOpenApp }: TaskbarProps) => {
     return () => clearInterval(timer);
   }, []);
 
+  const FIXED_APPS: AppKeys[] = ["quiz"];
+
   return (
     <div className={styles.xpTaskbar}>
       <button className={styles.startButton}>
@@ -35,30 +44,36 @@ const Taskbar = ({ openedApps, onOpenApp }: TaskbarProps) => {
       </button>
 
       <div className={styles.quickLaunch}>
-        {FIXED_APPS.map((id) => {
-          const app = APPS.find((a) => a.id === id);
-          return (
-            <button
-              key={`fixed-${id}`}
-              className={styles.fixedApp}
-              onClick={() => onOpenApp(id)}
-              title={app?.label}
-            >
-              <img src={app?.icon} alt="" className={styles.fixedIcon} />
-            </button>
-          );
-        })}
+        {FIXED_APPS.map((id) => (
+          <button
+            key={id}
+            className={styles.fixedApp}
+            onClick={() => onOpenApp(id)}
+          >
+            <img
+              src={APPS.find((a) => a.id === id)?.icon}
+              alt=""
+              className={styles.fixedIcon}
+            />
+          </button>
+        ))}
       </div>
 
       <div className={styles.divider} />
 
       <div className={styles.taskItems}>
         {openedApps.map((appId) => {
-          const appInfo = APPS.find((a) => a.id === appId);
+          const app = APPS.find((a) => a.id === appId);
+          const displayIcon = appId === "wmp" ? mediaPlayer : app?.icon;
+
           return (
-            <div key={appId} className={styles.taskItem}>
-              <img src={appInfo?.icon} alt="" className={styles.taskItemIcon} />
-              <span className={styles.taskItemLabel}>{appInfo?.label}</span>
+            <div
+              key={appId}
+              className={`${styles.taskItem} ${focusedAppId === appId ? styles.activeTask : ""}`}
+              onClick={() => onToggleMinimize(appId)}
+            >
+              <img src={displayIcon} alt="" className={styles.taskItemIcon} />
+              <span className={styles.taskItemLabel}>{app?.label}</span>
             </div>
           );
         })}

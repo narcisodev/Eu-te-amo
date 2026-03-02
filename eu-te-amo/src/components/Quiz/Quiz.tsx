@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "xp.css/dist/XP.css";
+import styles from "./styles.module.css";
+import info from "../../assets/icons/info.png";
 
 interface Question {
   question: string;
@@ -9,9 +11,9 @@ interface Question {
 
 const questions: Question[] = [
   {
-    question: "Qual é a coisa mais importante num relacionamento?",
-    options: ["Dinheiro", "Amor e respeito", "Aparência", "Popularidade"],
-    correct: 1,
+    question: "Qual é que começamos a namorar?",
+    options: ["11/09/2001", "06/08/1945", "16/11/2024", "30/04/1945"],
+    correct: 2,
   },
   {
     question: "O que eu mais amo em você?",
@@ -48,30 +50,18 @@ const LoveQuiz = () => {
 
   const q = questions[currentQ];
 
-  // Retornamos apenas a "window-body" pois a "window" e a "title-bar"
-  // já são criadas pelo seu componente WindowsXPWindow no App.tsx
   return (
-    <div
-      className="window-body"
-      style={{
-        margin: 0,
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-      }}
-    >
+    <div className={`window-body ${styles.container}`}>
       {!finished ? (
         <>
-          <p style={{ marginBottom: "15px", fontWeight: "bold" }}>
-            {q.question}
-          </p>
+          <p className={styles.questionText}>{q.question}</p>
 
-          <fieldset style={{ flex: 1 }}>
+          <fieldset className={styles.optionsFieldset}>
             <legend>
               Pergunta {currentQ + 1} de {questions.length}
             </legend>
             {q.options.map((option, i) => (
-              <div key={i} className="field-row" style={{ margin: "12px 0" }}>
+              <div key={i} className={`field-row ${styles.optionRow}`}>
                 <input
                   type="radio"
                   id={`opt-${i}`}
@@ -99,35 +89,20 @@ const LoveQuiz = () => {
             ))}
           </fieldset>
 
-          <section
-            className="field-row"
-            style={{ justifyContent: "flex-end", marginTop: "15px" }}
-          >
+          <section className={`field-row ${styles.footerActions}`}>
             <button
               onClick={nextQuestion}
               disabled={selected === null}
-              style={{ minWidth: "80px" }}
+              className={styles.nextButton}
             >
               {currentQ === questions.length - 1 ? "Finalizar" : "Próxima >"}
             </button>
           </section>
         </>
       ) : (
-        <div style={{ textAlign: "center", padding: "10px" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "15px",
-              marginBottom: "20px",
-              textAlign: "left",
-            }}
-          >
-            <img
-              src="/icons/msg_information.png"
-              alt="Info"
-              style={{ width: "32px", height: "32px" }}
-            />
+        <div className={styles.resultWrapper}>
+          <div className={styles.resultInfo}>
+            <img src={info} alt="Info" className={styles.infoIcon} />
             <div>
               <p>
                 <strong>Teste de Compatibilidade Concluído</strong>
@@ -135,23 +110,18 @@ const LoveQuiz = () => {
               <p>O assistente processou suas respostas com sucesso.</p>
             </div>
           </div>
-          <div
-            style={{
-              background: "white",
-              border: "1px solid #7F9DB9",
-              padding: "10px",
-              marginBottom: "20px",
-            }}
-          >
+
+          <div className={styles.scoreBox}>
             <p>
               Acertos: {score} de {questions.length}
             </p>
-            <p style={{ marginTop: "5px" }}>
+            <p className={styles.resultMessage}>
               {score === questions.length
-                ? "Resultado: Alma Gêmea Detectada! 😍"
-                : "Resultado: Continue tentando! 💕"}
+                ? "Resultado: Alma Gêmea Detectada!"
+                : "Resultado: Continue tentando!"}
             </p>
           </div>
+
           <button
             onClick={() => {
               setFinished(false);
@@ -159,7 +129,7 @@ const LoveQuiz = () => {
               setScore(0);
               setSelected(null);
             }}
-            style={{ width: "80px" }}
+            className={styles.resetButton}
           >
             Reiniciar
           </button>

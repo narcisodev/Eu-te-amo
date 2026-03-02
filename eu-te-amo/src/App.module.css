@@ -13,6 +13,7 @@
   flex: 1;
   position: relative;
   width: 100%;
+  height: calc(100vh - 45px);
   user-select: none;
   -webkit-user-select: none;
 }

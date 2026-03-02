@@ -1,25 +1,28 @@
 import styles from "./styles.module.css";
+import diskC from "../../../assets/icons/local-disk-C.ico";
+import diskD from "../../../assets/icons/local-disk-D.ico";
+import opticalDrive from "../../../assets/icons/optical-drive.ico";
 
 const MeuComputador = () => {
   const drives = [
     {
       id: "c",
       label: "Disco Local (C:)",
-      icon: "/icons/hard-drive.png",
+      icon: diskC,
       total: "40GB",
       free: "12GB",
     },
     {
       id: "d",
       label: "Dados (D:)",
-      icon: "/icons/hard-drive.png",
+      icon: diskD,
       total: "120GB",
       free: "80GB",
     },
     {
       id: "e",
       label: "Unidade de CD (E:)",
-      icon: "/icons/cd-drive.png",
+      icon: opticalDrive,
       total: "700MB",
       free: "0MB",
     },

@@ -1,0 +1,77 @@
+.container {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.questionText {
+  margin-bottom: 15px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.optionsFieldset {
+  flex: 1;
+}
+
+.optionRow {
+  margin: 12px 0;
+}
+
+.optionRow label {
+  cursor: pointer;
+}
+
+.optionsFieldset {
+  margin: 6px;
+}
+
+.footerActions {
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.nextButton {
+  min-width: 80px;
+  cursor: pointer;
+}
+
+.resultWrapper {
+  text-align: center;
+  padding: 10px;
+}
+
+.resultInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.infoIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.scoreBox {
+  background: white;
+  border: 1px solid #7f9db9;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.resultMessage {
+  margin-top: 5px;
+}
+
+.resetButton {
+  width: 80px;
+  cursor: pointer;
+}
+
+.footerActions {
+  margin: 6px;
+  justify-content: right;
+}

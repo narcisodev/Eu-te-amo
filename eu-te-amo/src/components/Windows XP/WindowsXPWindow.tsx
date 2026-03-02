@@ -1,55 +1,80 @@
 import { useRef, type ReactNode } from "react";
 import Draggable from "react-draggable";
 import "xp.css/dist/XP.css";
+import styles from "./styles.module.css";
 
-// 1. Definimos a interface para as props da janela
-interface WindowsXPWindowProps {
+interface Props {
   title: string;
-  children: ReactNode; // ReactNode permite qualquer conteúdo renderizável (texto, HTML, outros componentes)
+  icon?: string; // Nova prop para o caminho do ícone
+  children: ReactNode;
+  isActive: boolean;
+  isMinimized: boolean;
+  resizable?: boolean;
+  onFocus: () => void;
   onClose: () => void;
+  onMinimize: () => void;
 }
 
 const WindowsXPWindow = ({
   title,
+  icon,
   children,
+  isActive,
+  isMinimized,
+  resizable = false,
+  onFocus,
   onClose,
-}: WindowsXPWindowProps) => {
+  onMinimize,
+}: Props) => {
   const nodeRef = useRef(null);
 
+  if (isMinimized) return null;
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0, // Atalho para top, left, right, bottom: 0
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 9999,
-        pointerEvents: "none", // Permite clicar no que está atrás da área vazia
-      }}
+    <Draggable
+      nodeRef={nodeRef}
+      handle=".title-bar"
+      bounds="parent"
+      onStart={onFocus}
+      onMouseDown={onFocus}
     >
-      <Draggable nodeRef={nodeRef} handle=".title-bar">
-        <div
-          ref={nodeRef}
-          className="window"
-          style={{
-            width: 350,
-            pointerEvents: "auto", // Reativa o clique apenas na janela em si
-            position: "absolute",
-          }}
-        >
-          <div className="title-bar" style={{ cursor: "grab" }}>
+      <div
+        ref={nodeRef}
+        className={`
+          ${styles.windowWrapper} 
+          window 
+          ${isActive ? styles.activeWindow : styles.inactiveWindow}
+          ${resizable ? styles.resizableWindow : ""} 
+        `}
+      >
+        <div className={`title-bar ${!isActive ? "inactive" : ""}`}>
+          <div className={styles.titleContainer}>
+            {/* Ícone da Janela */}
+            {icon && <img src={icon} alt="" className={styles.titleIcon} />}
             <div className="title-bar-text">{title}</div>
-            <div className="title-bar-controls">
-              <button aria-label="Minimize" />
-              <button aria-label="Maximize" />
-              <button aria-label="Close" onClick={onClose} />
-            </div>
           </div>
-          <div className="window-body">{children}</div>
+
+          <div className="title-bar-controls">
+            <button
+              aria-label="Minimize"
+              onClick={(e) => {
+                e.stopPropagation();
+                onMinimize();
+              }}
+            />
+            <button aria-label="Maximize" />
+            <button
+              aria-label="Close"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
+            />
+          </div>
         </div>
-      </Draggable>
-    </div>
+        <div className={`window-body ${styles.windowBody}`}>{children}</div>
+      </div>
+    </Draggable>
   );
 };
 

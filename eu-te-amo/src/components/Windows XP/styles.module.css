@@ -1,0 +1,67 @@
+.windowWrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #ece9d8;
+  transition: box-shadow 0.2s ease;
+  top: 50px;
+  left: 50px;
+  width: 400px;
+  height: 300px;
+  min-width: 300px;
+  min-height: 200px;
+
+  /* TRAVA DE SEGURANÇA: Impede extrapolar a tela e a Taskbar (45px) */
+  max-width: calc(100vw - 50px);
+  max-height: calc(100vh - 45px - 50px);
+
+  box-sizing: border-box;
+}
+
+.activeWindow {
+  z-index: 1000;
+  box-shadow:
+    2px 2px 15px rgba(0, 0, 0, 0.3),
+    0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.inactiveWindow {
+  z-index: 100;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.resizableWindow {
+  resize: both;
+  overflow: hidden;
+}
+
+.windowBody {
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #ece9d8;
+  overflow: hidden;
+}
+
+.windowBody p {
+  padding: 8px;
+  margin: 0;
+  font-family: "Tahoma", sans-serif;
+  font-size: 12px;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.titleIcon {
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
+  margin-bottom: 1px;
+}
