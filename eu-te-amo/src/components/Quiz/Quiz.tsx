@@ -35,7 +35,7 @@ const questions: Question[] = [
     options: [
       "Socorro, eu quero correr",
       "Que mulher gostosa da ****",
-      "Vou contar a lore inteira de Hora de Aventtura pra ela",
+      "Vou contar a lore inteira de Hora de Aventura pra ela",
       "Esqueci de entregar minha lista",
     ],
     correct: 2,
@@ -120,7 +120,7 @@ const LoveQuiz = () => {
             <img src={info} alt="Info" className={styles.infoIcon} />
             <div>
               <p>
-                <strong>Teste de Compatibilidade Concluído</strong>
+                <strong>Teste Concluído</strong>
               </p>
               <p>O assistente processou suas respostas com sucesso.</p>
             </div>
@@ -132,8 +132,8 @@ const LoveQuiz = () => {
             </p>
             <p className={styles.resultMessage}>
               {score === questions.length
-                ? "Resultado: Alma Gêmea Detectada!"
-                : "Resultado: Continue tentando!"}
+                ? "Resultado: Slc, sabe muito"
+                : "Resultado: Me odeia"}
             </p>
           </div>
 
