@@ -16,14 +16,29 @@ const questions: Question[] = [
     correct: 2,
   },
   {
-    question: "O que eu mais amo em você?",
-    options: ["Tudo!", "Só o sorriso", "Nada", "O cabelo"],
-    correct: 0,
+    question: "Qual melhor série do mundo?",
+    options: [
+      "How I meet your mother",
+      "Hora de Aventura",
+      "Rick and Morty",
+      "Todas que eu assistir com você",
+    ],
+    correct: 1,
   },
   {
-    question: "Quantos 'eu te amo' são suficientes por dia?",
-    options: ["1", "10", "100", "Nunca são suficientes ❤️"],
+    question: "Quem eu escolheria?",
+    options: ["Hatsune Miku", "PC", "Maga caçadora", "Você"],
     correct: 3,
+  },
+  {
+    question: "Qual foi a primeira coisa que eu pensei quando te vi?",
+    options: [
+      "Socorro, eu quero correr",
+      "Que mulher gostosa da ****",
+      "Vou contar a lore inteira de Hora de Aventtura pra ela",
+      "Esqueci de entregar minha lista",
+    ],
+    correct: 2,
   },
 ];
 
