@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Heart, CheckCircle, XCircle, RotateCcw } from "lucide-react";
+import "xp.css/dist/XP.css";
 
 interface Question {
   question: string;
@@ -24,16 +23,6 @@ const questions: Question[] = [
     options: ["1", "10", "100", "Nunca são suficientes ❤️"],
     correct: 3,
   },
-  {
-    question: "Qual é o melhor programa de casal?",
-    options: ["Ficar no sofá juntos", "Viajar", "Cozinhar junto", "Todos os acima!"],
-    correct: 3,
-  },
-  {
-    question: "O que torna nosso amor especial?",
-    options: ["Sermos nós mesmos", "Os presentes", "As fotos", "Os likes"],
-    correct: 0,
-  },
 ];
 
 const LoveQuiz = () => {
@@ -45,142 +34,138 @@ const LoveQuiz = () => {
   const handleSelect = (optionIndex: number) => {
     if (selected !== null) return;
     setSelected(optionIndex);
-    if (optionIndex === questions[currentQ].correct) {
-      setScore((s) => s + 1);
-    }
-    setTimeout(() => {
-      if (currentQ < questions.length - 1) {
-        setCurrentQ((q) => q + 1);
-        setSelected(null);
-      } else {
-        setFinished(true);
-      }
-    }, 1200);
+    if (optionIndex === questions[currentQ].correct) setScore((s) => s + 1);
   };
 
-  const reset = () => {
-    setCurrentQ(0);
-    setScore(0);
-    setSelected(null);
-    setFinished(false);
+  const nextQuestion = () => {
+    if (currentQ < questions.length - 1) {
+      setCurrentQ((q) => q + 1);
+      setSelected(null);
+    } else {
+      setFinished(true);
+    }
   };
 
   const q = questions[currentQ];
 
+  // Retornamos apenas a "window-body" pois a "window" e a "title-bar"
+  // já são criadas pelo seu componente WindowsXPWindow no App.tsx
   return (
-    <section className="py-20 md:py-32 px-6 bg-background">
-      <div className="max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-gradient-love mb-4">
-            Quiz do Amor
-          </h2>
-          <p className="text-lg text-muted-foreground font-body italic">
-            Será que você me conhece de verdade? 💘
+    <div
+      className="window-body"
+      style={{
+        margin: 0,
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      {!finished ? (
+        <>
+          <p style={{ marginBottom: "15px", fontWeight: "bold" }}>
+            {q.question}
           </p>
-        </motion.div>
 
-        <AnimatePresence mode="wait">
-          {!finished ? (
-            <motion.div
-              key={currentQ}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              className="bg-card rounded-3xl p-8 md:p-10 shadow-lg border border-border"
-            >
-              <div className="flex justify-between items-center mb-6">
-                <span className="text-sm font-body text-muted-foreground">
-                  Pergunta {currentQ + 1} de {questions.length}
-                </span>
-                <div className="flex gap-1">
-                  {questions.map((_, i) => (
-                    <div
-                      key={i}
-                      className={`w-3 h-3 rounded-full transition-colors ${
-                        i <= currentQ ? "bg-primary" : "bg-muted"
-                      }`}
-                    />
-                  ))}
-                </div>
+          <fieldset style={{ flex: 1 }}>
+            <legend>
+              Pergunta {currentQ + 1} de {questions.length}
+            </legend>
+            {q.options.map((option, i) => (
+              <div key={i} className="field-row" style={{ margin: "12px 0" }}>
+                <input
+                  type="radio"
+                  id={`opt-${i}`}
+                  name="quiz-opt"
+                  checked={selected === i}
+                  onChange={() => handleSelect(i)}
+                  disabled={selected !== null}
+                />
+                <label
+                  htmlFor={`opt-${i}`}
+                  style={{
+                    color:
+                      selected !== null && i === q.correct
+                        ? "#008000"
+                        : selected === i && i !== q.correct
+                          ? "#FF0000"
+                          : "black",
+                    fontWeight:
+                      selected !== null && i === q.correct ? "bold" : "normal",
+                  }}
+                >
+                  {option}
+                </label>
               </div>
+            ))}
+          </fieldset>
 
-              <h3 className="text-xl md:text-2xl font-display font-bold text-foreground mb-8">
-                {q.question}
-              </h3>
-
-              <div className="space-y-3">
-                {q.options.map((option, i) => {
-                  const isSelected = selected === i;
-                  const isCorrect = i === q.correct;
-                  const showResult = selected !== null;
-
-                  return (
-                    <motion.button
-                      key={i}
-                      onClick={() => handleSelect(i)}
-                      whileHover={selected === null ? { scale: 1.02 } : {}}
-                      whileTap={selected === null ? { scale: 0.98 } : {}}
-                      className={`w-full text-left p-4 rounded-2xl border-2 font-body transition-all flex items-center gap-3 ${
-                        showResult && isCorrect
-                          ? "border-love-warm bg-secondary"
-                          : showResult && isSelected && !isCorrect
-                          ? "border-destructive bg-secondary"
-                          : "border-border hover:border-primary/50 bg-background"
-                      }`}
-                    >
-                      {showResult && isCorrect && <CheckCircle className="text-love-warm flex-shrink-0" size={20} />}
-                      {showResult && isSelected && !isCorrect && <XCircle className="text-destructive flex-shrink-0" size={20} />}
-                      {!showResult && <Heart className="text-love-rose-light flex-shrink-0" size={18} />}
-                      {option}
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="result"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-card rounded-3xl p-10 shadow-lg border border-border text-center"
+          <section
+            className="field-row"
+            style={{ justifyContent: "flex-end", marginTop: "15px" }}
+          >
+            <button
+              onClick={nextQuestion}
+              disabled={selected === null}
+              style={{ minWidth: "80px" }}
             >
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-              >
-                <Heart className="mx-auto text-primary mb-6" size={64} fill="currentColor" />
-              </motion.div>
-
-              <h3 className="text-3xl font-display font-bold text-foreground mb-4">
-                {score === questions.length
-                  ? "Perfeito! Você me conhece demais! 😍"
-                  : score >= 3
-                  ? "Quase lá! Você me conhece bem! 🥰"
-                  : "Vamos passar mais tempo juntos! 💕"}
-              </h3>
-
-              <p className="text-xl text-muted-foreground font-body mb-8">
-                Você acertou {score} de {questions.length} perguntas
+              {currentQ === questions.length - 1 ? "Finalizar" : "Próxima >"}
+            </button>
+          </section>
+        </>
+      ) : (
+        <div style={{ textAlign: "center", padding: "10px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "15px",
+              marginBottom: "20px",
+              textAlign: "left",
+            }}
+          >
+            <img
+              src="/icons/msg_information.png"
+              alt="Info"
+              style={{ width: "32px", height: "32px" }}
+            />
+            <div>
+              <p>
+                <strong>Teste de Compatibilidade Concluído</strong>
               </p>
-
-              <motion.button
-                onClick={reset}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 bg-gradient-love text-primary-foreground px-8 py-3 rounded-full font-body text-lg"
-              >
-                <RotateCcw size={18} /> Jogar de Novo
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </section>
+              <p>O assistente processou suas respostas com sucesso.</p>
+            </div>
+          </div>
+          <div
+            style={{
+              background: "white",
+              border: "1px solid #7F9DB9",
+              padding: "10px",
+              marginBottom: "20px",
+            }}
+          >
+            <p>
+              Acertos: {score} de {questions.length}
+            </p>
+            <p style={{ marginTop: "5px" }}>
+              {score === questions.length
+                ? "Resultado: Alma Gêmea Detectada! 😍"
+                : "Resultado: Continue tentando! 💕"}
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              setFinished(false);
+              setCurrentQ(0);
+              setScore(0);
+              setSelected(null);
+            }}
+            style={{ width: "80px" }}
+          >
+            Reiniciar
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 

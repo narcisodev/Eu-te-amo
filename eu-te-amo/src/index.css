@@ -2,10 +2,16 @@
   image-rendering: pixelated;
   font-smooth: never;
   -webkit-font-smoothing: none;
-  background-color: #4bb4bd;
   color: #000;
   font-family: "Tahoma", sans-serif;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
 }

@@ -1,0 +1,56 @@
+.container {
+  padding: 10px;
+  background: white;
+  height: 100%;
+  font-family: "Tahoma", sans-serif;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  color: #003399;
+  border-bottom: 1px solid #99b4d1;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.driveItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 200px;
+}
+
+.driveIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.driveLabel {
+  font-size: 11px;
+  font-weight: bold;
+  display: block;
+}
+
+.driveSpace {
+  font-size: 10px;
+  color: #666;
+}
+
+.capacityBar {
+  width: 100px;
+  height: 10px;
+  border: 1px solid #999;
+  background: #eee;
+  margin: 2px 0;
+}
+
+.capacityFill {
+  height: 100%;
+  background: linear-gradient(to bottom, #4caf50, #2e7d32);
+}

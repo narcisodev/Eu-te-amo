@@ -1,0 +1,138 @@
+.xpTaskbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    #245edb 0%,
+    #3f8cf3 9%,
+    #245edb 18%,
+    #245edb 92%,
+    #1941a5 100%
+  );
+  display: flex;
+  align-items: center;
+  z-index: 9999;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  font-family: "Tahoma", sans-serif;
+}
+
+.xpIcon {
+  width: 26px;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 12px;
+}
+
+.startButton {
+  height: 100%;
+  padding: 0 15px;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  background: radial-gradient(circle at 10% 50%, #53bd53 0%, #3c9d3c 100%);
+  border-right: 1px solid #1035a2;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  font-style: italic;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 1px #222;
+}
+
+.startButton:hover {
+  filter: brightness(1.1);
+}
+
+.startText {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.taskItems {
+  flex: 1;
+}
+
+.systemTray {
+  margin-left: auto;
+  height: 100%;
+  background: linear-gradient(to bottom, #0997ff 0%, #0053ee 100%);
+  border-left: 1px solid #1035a2;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: white;
+  font-size: 11px;
+}
+
+.clock {
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.quickLaunch {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  gap: 4px;
+}
+
+.fixedApp {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+}
+
+.fixedApp:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.fixedIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.divider {
+  width: 2px;
+  height: 80%;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.2);
+  margin: 0 5px;
+}
+
+.taskItems {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 5px;
+  color: #fff;
+}
+
+.taskItemIcon {
+  width: 18px;
+  padding: 0 2px;
+}
+.taskItem {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.taskItemLabel {
+  color: #fff;
+}

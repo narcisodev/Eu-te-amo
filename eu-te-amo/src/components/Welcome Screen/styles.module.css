@@ -1,0 +1,142 @@
+.container {
+  background: linear-gradient(
+    to bottom,
+    #003399 0%,
+    #0053ee 8%,
+    #0053ee 92%,
+    #003399 100%
+  );
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: "Tahoma", "Segoe UI", sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+.leftPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 40px;
+}
+
+.logoGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.winText {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 12px;
+}
+
+.xpText {
+  display: block;
+  font-size: 48px;
+  color: #ff9900;
+  font-weight: 900;
+  margin-top: -10px;
+}
+
+.divider {
+  width: 1px;
+  height: 60%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.rightPanel {
+  flex: 1;
+  padding-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.userCard {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background 0.1s;
+  width: fit-content;
+}
+
+.userCard:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.avatarWrapper {
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  background-color: white;
+  width: 48px;
+  height: 48px;
+  padding: 1px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.userInfo {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.userStatus {
+  font-size: 11px;
+  color: #ffffffcc;
+}
+
+.loadingText {
+  font-size: 22px;
+  color: #ffffffcc;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
