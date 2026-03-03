@@ -14,6 +14,8 @@ const DEFAULT_DURATIONS: Record<MikuReaction, number> = {
   [MIKU_REACTIONS.THINKING]: 4000,
   [MIKU_REACTIONS.DANCING]: 7000,
   [MIKU_REACTIONS.DANCING_MINECRAFT]: 7000,
+  [MIKU_REACTIONS.PUNCH]: 3000,
+  [MIKU_REACTIONS.SKELETON]: 3000,
 };
 
 export const MikuProvider = ({ children }: { children: ReactNode }) => {
