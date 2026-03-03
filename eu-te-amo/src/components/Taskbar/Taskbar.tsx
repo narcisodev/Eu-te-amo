@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import windowsxp from "../../assets/icons/windows-xp-icon.png";
 import { type AppKeys, APPS } from "../../apps/appConfigs";
 
-import mediaPlayer from "../../assets/icons/media-player.png";
+import mediaPlayer from "../../assets/icons/apps/mediaplayer/media-player.png";
 
 interface TaskbarProps {
   openedApps: AppKeys[];

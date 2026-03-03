@@ -7,7 +7,17 @@ import mikuGif3 from "../../../assets/mikuBuddy/miku-punch.gif";
 
 const MIKU_GIFS = [mikuGif1, mikuGif2, mikuGif3];
 
-const initialPoem = ``;
+const initialPoem = `Sua voz em meio a confusão é um brilho para minha alma.
+Em meio às tempestades da vida, seu amor é meu porto seguro.
+Cada palavra sua é um verso que aquece meu coração.
+Te amar é como respirar, essencial e natural.
+
+A tristeza de levantar todos os dias ameniza cada vez que penso em você.
+Mesmo nos dias mais difíceis, seu amor é a luz que me guia.
+
+Minha mente distorcida encontra paz na simplicidade do nosso amor.
+A doença que aflinge a minha alma é curada pelo remédio do seu carinho.
+Eu quero estar contigo sempre, todos os dias, em cada momento, porque te amar é a melhor parte de mim.`;
 
 interface NoteFile {
   id: string;

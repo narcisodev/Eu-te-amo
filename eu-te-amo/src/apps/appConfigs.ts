@@ -4,14 +4,16 @@ import ReasonsLove from "../components/Apps/Reasons Love/ReasonsLove";
 import Quiz from "../components/Apps/Quiz/Quiz";
 import Computer from "../components/Apps/My Computer/MyComputer";
 
-import reasonsIcon from "../assets/icons/love.png";
-import quizIcon from "../assets/icons/quiz.ico";
-import computerIcon from "../assets/icons/my-computer-icon.ico";
-import wmpIcon from "../assets/icons/media-player.png";
-import timelineIcon from "../assets/icons/timeline.ico";
+import reasonsIcon from "../assets/icons/apps/reasons/love.png";
+import quizIcon from "../assets/icons/apps/quiz/quiz.ico";
+import computerIcon from "../assets/icons/apps/mycomputer/my-computer-icon.ico";
+import wmpIcon from "../assets/icons/apps/mediaplayer/audio.png";
+import timelineIcon from "../assets/icons/apps/timeline/timeline.ico";
 import Timeline from "../components/Apps/Timeline/Timeline";
 import Notepad from "../components/Apps/Notepad/Notepad";
-import notepadIcon from "../assets/icons/notepad.ico";
+import notepadIcon from "../assets/icons/apps/notepad/notepad.ico";
+import Minesweeper from "../components/Apps/Minesweeper/Minesweeper";
+import mine from "../assets/icons/apps/minesweeper/mine.png";
 
 export type AppKeys =
   | "reasons"
@@ -19,6 +21,7 @@ export type AppKeys =
   | "computer"
   | "wmp"
   | "timeline"
+  | "mine"
   | "notepad";
 
 export interface BaseAppProps {
@@ -76,6 +79,14 @@ export const APPS: AppConfig[] = [
     icon: notepadIcon,
     Component: Notepad,
     resizable: true,
+  },
+  {
+    id: "mine",
+    label: "Campo Minado",
+    title: "Campo Minado",
+    icon: mine,
+    Component: Minesweeper,
+    resizable: false,
   },
   {
     id: "wmp",

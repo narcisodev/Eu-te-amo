@@ -6,10 +6,12 @@
   transition: box-shadow 0.2s ease;
   top: 50px;
   left: 50px;
-  width: 400px;
-  height: 300px;
-  min-width: 300px;
-  min-height: 200px;
+
+  width: fit-content;
+  height: fit-content;
+
+  min-width: 400px;
+  min-height: 300px;
 
   max-width: calc(100vw - 50px);
   max-height: calc(100vh - 45px - 50px);

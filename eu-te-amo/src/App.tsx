@@ -14,7 +14,7 @@ import { MIKU_REACTIONS } from "./context/MikuBuddy/MikuTypes";
 import { APPS, type AppKeys } from "./apps/appConfigs";
 import styles from "./App.module.css";
 
-import videoIcon from "./assets/icons/audio.png";
+import videoIcon from "./assets/icons/apps/mediaplayer/audio.png";
 
 interface MusicData {
   src: string;

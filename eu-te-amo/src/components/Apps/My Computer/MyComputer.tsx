@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
-import diskC from "../../../assets/icons/local-disk-C.ico";
-import diskD from "../../../assets/icons/local-disk-D.ico";
-import opticalDrive from "../../../assets/icons/optical-drive.ico";
+import diskC from "../../../assets/icons/apps/mycomputer/local-disk-C.ico";
+import diskD from "../../../assets/icons/apps/mycomputer/local-disk-D.ico";
+import opticalDrive from "../../../assets/icons/apps/mycomputer/optical-drive.ico";
 
 const MeuComputador = () => {
   const drives = [
