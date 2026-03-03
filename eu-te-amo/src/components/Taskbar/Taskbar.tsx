@@ -34,7 +34,7 @@ const Taskbar = ({
     return () => clearInterval(timer);
   }, []);
 
-  const FIXED_APPS: AppKeys[] = ["quiz", "reasons"];
+  const FIXED_APPS: AppKeys[] = ["notepad", "timeline", "mine"];
 
   return (
     <div className={styles.xpTaskbar}>
