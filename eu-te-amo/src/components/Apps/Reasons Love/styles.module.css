@@ -1,0 +1,141 @@
+.container {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.resetBtn {
+  margin-top: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 120px);
+  gap: 14px;
+  justify-content: center;
+  flex: 1;
+  overflow: auto;
+}
+
+.card {
+  width: 120px;
+  height: 120px; /* Mudou de 100px para 120px */
+  perspective: 1500px; /* Mudou de 1000 para 1500 (deixa o giro menos "agressivo") */
+  background: transparent;
+  animation: fadeIn 0.4s ease forwards;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  /* 🔥 FIX DEFINITIVO: O cardInner não gira mais! Ele fica parado. */
+}
+
+/* -------------------------
+   FACES (Elas giram sozinhas agora)
+------------------------- */
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Esconde as costas da face quando ela estiver virada */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  /* 🔥 FIX: A animação de giro agora é aplicada diretamente em cada face */
+  transition: transform 0.6s ease;
+
+  border: 1px solid #aaa;
+  box-shadow: 2px 2px 0px #999;
+}
+
+/* Frente (Coração) - Começa em 0 graus */
+.cardFront {
+  background: linear-gradient(#ffffff, #f1f1f1);
+  background-image: url("/image/meuamor.png");
+  transform: rotateY(0deg);
+}
+
+/* Verso (Texto) - Começa escondido de costas (-180 graus) */
+.cardBack {
+  background: #ffffff;
+  padding: 8px;
+  font-size: 11px; /* Fonte levemente menor para caber textos longos */
+  text-align: center;
+  line-height: 1.3;
+  transform: rotateY(-180deg);
+  box-sizing: border-box; /* Impede que o padding engorde a carta */
+
+  /* Centraliza o texto verticalmente e horizontalmente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardBack p {
+  cursor: pointer;
+}
+
+/* -------------------------
+   O GIRO (Quando recebe a classe .flipped)
+------------------------- */
+
+/* A frente gira para trás e esconde */
+.flipped .cardFront {
+  transform: rotateY(180deg);
+  cursor: pointer;
+}
+
+/* O verso gira para frente e aparece! */
+.flipped .cardBack {
+  transform: rotateY(0deg);
+  cursor: pointer;
+}
+
+/* -------------------------
+   STATUS BAR
+------------------------- */
+
+.statusBar {
+  margin-top: 12px;
+  padding: 6px;
+  background: #dff6ff;
+  border: 1px solid #7fbfff;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* -------------------------
+   ANIMAÇÃO
+------------------------- */
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

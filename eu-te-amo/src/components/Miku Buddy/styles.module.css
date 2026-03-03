@@ -1,0 +1,48 @@
+.mikuWrapper {
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  z-index: 9999;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+}
+
+.mikuWrapper:active {
+  cursor: grabbing;
+}
+
+.mikuSprite {
+  width: 180px;
+  user-select: none;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.speechBubble {
+  position: relative;
+  background: #ffffcc;
+  border: 1px solid #000;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  margin-bottom: 8px;
+  max-width: 180px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+  color: #000;
+  text-align: center;
+}
+
+.bubbleArrow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #000;
+}
