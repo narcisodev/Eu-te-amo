@@ -10,15 +10,31 @@ import computerIcon from "../assets/icons/my-computer-icon.ico";
 import wmpIcon from "../assets/icons/media-player.png";
 import timelineIcon from "../assets/icons/timeline.ico";
 import Timeline from "../components/Apps/Timeline/Timeline";
+import Notepad from "../components/Apps/Notepad/Notepad";
+import notepadIcon from "../assets/icons/notepad.ico";
 
-export type AppKeys = "reasons" | "quiz" | "computer" | "wmp" | "timeline";
+export type AppKeys =
+  | "reasons"
+  | "quiz"
+  | "computer"
+  | "wmp"
+  | "timeline"
+  | "notepad";
+
+// 🔥 1. Adicionamos a interface que define as props dos apps (o ? deixa opcional pros apps que não usam)
+export interface BaseAppProps {
+  onClose?: () => void;
+}
 
 export interface AppConfig {
   id: AppKeys;
   label: string;
   title: string;
   icon: string;
-  Component: ComponentType;
+
+  // 🔥 2. Trocamos o <any> por <BaseAppProps>. O erro do ESLint some na hora!
+  Component: ComponentType<BaseAppProps>;
+
   resizable?: boolean;
 }
 
@@ -53,6 +69,14 @@ export const APPS: AppConfig[] = [
     title: "Linha do Tempo",
     icon: timelineIcon,
     Component: Timeline,
+    resizable: true,
+  },
+  {
+    id: "notepad",
+    label: "Bloco de Notas",
+    title: "Bloco de Notas",
+    icon: notepadIcon,
+    Component: Notepad,
     resizable: true,
   },
   {

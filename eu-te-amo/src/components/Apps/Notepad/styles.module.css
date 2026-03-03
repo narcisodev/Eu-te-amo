@@ -1,0 +1,150 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: #ece9d8; /* Fundo bege clássico */
+  font-family: "Tahoma", sans-serif;
+}
+
+/* Barra de menus clássica do XP */
+.menuBar {
+  display: flex;
+  gap: 12px;
+  padding: 2px 8px;
+  background-color: #ece9d8;
+  border-bottom: 1px solid #d4d0c8;
+  font-size: 12px;
+  color: #000;
+  user-select: none;
+}
+
+.menuItem {
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  background-color: #316ac5;
+  color: #ffffff;
+}
+
+/* -------------------------
+   SISTEMA DE ABAS (TABS)
+------------------------- */
+.tabsContainer {
+  display: flex;
+  align-items: flex-end;
+  background-color: #ece9d8;
+  padding: 4px 4px 0 4px;
+  border-bottom: 1px solid #848584; /* Linha que divide as abas do texto */
+  overflow-x: auto;
+  gap: 2px;
+}
+
+/* Esconde a barra de rolagem das abas */
+.tabsContainer::-webkit-scrollbar {
+  height: 0px;
+}
+
+.tab {
+  background-color: #ece9d8;
+  border: 1px solid #ffffff;
+  border-right-color: #848584;
+  border-bottom-color: #848584;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  display: flex;
+  align-items: center;
+  min-width: 80px;
+  justify-content: center;
+}
+
+.activeTab {
+  background-color: #ffffff;
+  border-bottom-color: #ffffff;
+  margin-bottom: -1px;
+  z-index: 2;
+  font-weight: bold;
+  color: #000;
+}
+
+.tabInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: inherit;
+  color: inherit;
+  text-align: center;
+  width: 100px;
+  height: 15px;
+}
+
+.addTabBtn {
+  background-color: #ece9d8;
+  border: 1px solid #ffffff;
+  border-right-color: #848584;
+  border-bottom-color: #848584;
+  padding: 2px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 2px;
+  margin-left: 2px;
+}
+
+.addTabBtn:active {
+  border-color: #848584;
+  border-right-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+.textArea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  padding: 8px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 14px;
+  color: #000000;
+  outline: none;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  cursor: text;
+}
+
+.textArea::-webkit-scrollbar {
+  width: 16px;
+}
+
+.textArea::-webkit-scrollbar-track {
+  background: #ece9d8;
+  border-left: 1px solid #d4d0c8;
+}
+
+.textArea::-webkit-scrollbar-thumb {
+  background: #cddbfa;
+  border: 1px solid #316ac5;
+}
+
+.closeTabBtn {
+  margin-left: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.closeTabBtn:hover {
+  color: red;
+}
