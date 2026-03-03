@@ -102,7 +102,7 @@ function DesktopContent() {
     setStage("desktop");
 
     setTimeout(() => {
-      triggerMiku("Bem-vinda meu amor!", MIKU_REACTIONS.HAPPY);
+      triggerMiku("Bem-vinda, meu amor!!", MIKU_REACTIONS.HAPPY);
     }, 1500);
   };
 

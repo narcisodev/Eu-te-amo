@@ -95,11 +95,10 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
      🎭 Escolher Dança Variada
   =========================== */
 
-  const getRandomDance = (): MikuReaction => {
+  const getRandomDance = useCallback((): MikuReaction => {
     let next =
       DANCE_VARIATIONS[Math.floor(Math.random() * DANCE_VARIATIONS.length)];
 
-    // evita repetir a mesma dança
     if (next === lastDanceRef.current) {
       next =
         DANCE_VARIATIONS.find((d) => d !== lastDanceRef.current) ??
@@ -108,18 +107,21 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
 
     lastDanceRef.current = next;
     return next;
-  };
+  }, []);
 
   /* ===========================
      🛑 Quando Para de Dançar
   =========================== */
 
   const handleStopDancing = useCallback(() => {
+    if (reactionTimeoutRef.current) {
+      clearTimeout(reactionTimeoutRef.current);
+    }
+
     const shouldSkeleton = Math.random() < SKELETON_CHANCE;
 
     if (shouldSkeleton) {
       playSkeletonSound();
-
       triggerMiku("AUGGHHHH 💀", MIKU_REACTIONS.SKELETON, SKELETON_DURATION);
 
       reactionTimeoutRef.current = setTimeout(() => {
@@ -140,40 +142,53 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
   }, [playSkeletonSound, triggerMiku]);
 
   /* ===========================
-     🎵 Effect Principal
+     🤖 O CÉREBRO DA MIKU (Recuperar o estado)
+  =========================== */
+  useEffect(() => {
+    if (isDancing && reaction === MIKU_REACTIONS.IDLE) {
+      const dance = getRandomDance();
+      triggerMiku("", dance, 0);
+    }
+  }, [isDancing, reaction, triggerMiku, getRandomDance]);
+
+  /* ===========================
+     🎵 Effect Principal (Vigia a música)
   =========================== */
 
   useEffect(() => {
-    if (reactionTimeoutRef.current) {
-      clearTimeout(reactionTimeoutRef.current);
-      reactionTimeoutRef.current = null;
-    }
-
-    // 🎵 Está dançando
-    if (isDancing) {
+    // 🎵 Começou a tocar música
+    if (isDancing && !wasDancingRef.current) {
       wasDancingRef.current = true;
-
       stopAllAudio();
 
+      if (reactionTimeoutRef.current) {
+        clearTimeout(reactionTimeoutRef.current);
+      }
+
+      // 🔥 FIX DEFINITIVO:
+      // Não espera mais ela ficar IDLE. A música tocou, a dança é imediata!
       const dance = getRandomDance();
       triggerMiku("", dance, 0);
 
       return;
     }
 
-    // 🛑 Parou de dançar
-    if (wasDancingRef.current) {
+    // 🛑 Parou de tocar música
+    if (!isDancing && wasDancingRef.current) {
       wasDancingRef.current = false;
       handleStopDancing();
     }
 
     return () => {
-      if (reactionTimeoutRef.current) {
-        clearTimeout(reactionTimeoutRef.current);
-      }
       stopAllAudio();
     };
-  }, [isDancing, triggerMiku, handleStopDancing, stopAllAudio]);
+  }, [
+    isDancing,
+    triggerMiku,
+    handleStopDancing,
+    stopAllAudio,
+    getRandomDance, // Removido o 'reaction' daqui para não engasgar o hook
+  ]);
 
   /* ===========================
      SPRITES
@@ -204,7 +219,7 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
 
         <img
           className={styles.mikuSprite}
-          src={reactionAssets[reaction]}
+          src={reactionAssets[reaction] || mikuIdle}
           alt="Miku Assistant"
           draggable="false"
         />

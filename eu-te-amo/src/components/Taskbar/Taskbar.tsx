@@ -43,21 +43,21 @@ const Taskbar = ({
         <span className={styles.startText}>Iniciar</span>
       </button>
 
+      {/* ÁREA FIXA (Quick Launch) */}
       <div className={styles.quickLaunch}>
         {FIXED_APPS.map((id) => {
-          const app = APPS.find((a) => a.id === id); // Busca as informações do App fixo
+          const app = APPS.find((a) => a.id === id);
 
           return (
             <button
               key={id}
               className={styles.fixedApp}
               onClick={() => onOpenApp(id)}
-              title={app?.label} // Adiciona aquela dica clássica ao passar o mouse!
+              title={app?.label}
             >
               <img src={app?.icon} alt="" className={styles.fixedIcon} />
-              {/* Aqui está o nome do app na parte fixa! 
-                  Se quiser só o espaço vazio como fez nos apps abertos, 
-                  basta apagar o {app?.label} de dentro do span. */}
+              {/* Se quiser que a área fixa fique IGUAL ao Windows XP (só o ícone), 
+                  você pode apagar o {app?.label} daqui, mas manter a tag span */}
               <span className={styles.fixedLabel}>{app?.label}</span>
             </button>
           );
@@ -66,6 +66,7 @@ const Taskbar = ({
 
       <div className={styles.divider} />
 
+      {/* ÁREA NORMAL (Apps Abertos) */}
       <div className={styles.taskItems}>
         {openedApps.map((appId) => {
           const app = APPS.find((a) => a.id === appId);
@@ -79,8 +80,8 @@ const Taskbar = ({
             >
               <img src={displayIcon} alt="" className={styles.taskItemIcon} />
 
-              {/* O span vazio para manter o espaço sem texto nos apps abertos */}
-              <span className={styles.taskItemLabel}></span>
+              {/* 🔥 CORREÇÃO: Nome do app de volta na barra normal! */}
+              <span className={styles.taskItemLabel}>{app?.label}</span>
             </div>
           );
         })}

@@ -16,12 +16,14 @@ import reasonsIcon from "../assets/icons/love.png";
 import quizIcon from "../assets/icons/quiz.ico";
 import computerIcon from "../assets/icons/my-computer-icon.ico";
 import wmpIcon from "../assets/icons/media-player.png";
+import timelineIcon from "../assets/icons/timeline.ico";
+import Timeline from "../components/Apps/Timeline/Timeline";
 
 /* ----------------------------
    TIPAGEM
 ---------------------------- */
 
-export type AppKeys = "reasons" | "quiz" | "computer" | "wmp";
+export type AppKeys = "reasons" | "quiz" | "computer" | "wmp" | "timeline";
 
 export interface AppConfig {
   id: AppKeys;
@@ -59,6 +61,14 @@ export const APPS: AppConfig[] = [
     title: "Quiz do Amor",
     icon: quizIcon,
     Component: Quiz,
+    resizable: true,
+  },
+  {
+    id: "timeline",
+    label: "Linha do Tempo",
+    title: "Linha do Tempo",
+    icon: timelineIcon,
+    Component: Timeline,
     resizable: true,
   },
   {

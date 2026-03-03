@@ -1,0 +1,120 @@
+.container {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-family: "Tahoma", sans-serif;
+  background-color: #ece9d8;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+  color: #000;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #555;
+  margin: 0;
+}
+
+/* Área rolável afundada (Inset) */
+.scrollArea {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-top-color: #848584;
+  border-left-color: #848584;
+  border-bottom-color: #ffffff;
+  border-right-color: #ffffff;
+  padding: 20px;
+  position: relative;
+}
+
+/* A linha vertical da Timeline */
+.timeline {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 14px; /* Posição da linha */
+  width: 2px;
+  background-color: #a0a0a0;
+  border-right: 1px solid #ffffff; /* Efeito 3D na linha */
+}
+
+/* Cada Evento */
+.event {
+  position: relative;
+  margin-bottom: 24px;
+  padding-left: 40px; /* Espaço para não encostar na linha */
+}
+
+.event:last-child {
+  margin-bottom: 0;
+}
+
+/* O "Pino" ou "Bolinha" na linha do tempo */
+.node {
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  background-color: #0054e3;
+  border: 2px solid #ece9d8;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #848584;
+  z-index: 1;
+}
+
+/* A Caixa de Conteúdo do Evento (Outset) */
+.content {
+  background-color: #ece9d8;
+  border: 2px solid;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  border-bottom-color: #848584;
+  border-right-color: #848584;
+  padding: 12px;
+}
+
+.date {
+  display: inline-block;
+  background-color: #0054e3;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  margin-bottom: 6px;
+  border: 1px solid #003399;
+}
+
+.eventTitle {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  margin: 0 0 6px 0;
+}
+
+.eventDesc {
+  font-size: 12px;
+  color: #333;
+  line-height: 1.4;
+  margin: 0;
+}
