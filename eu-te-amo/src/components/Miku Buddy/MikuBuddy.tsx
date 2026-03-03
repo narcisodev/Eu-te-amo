@@ -14,6 +14,9 @@ import mikuDancingMinecraft from "../../assets/mikuBuddy/miku-dancing-minecraft.
 import mikuPunch from "../../assets/mikuBuddy/miku-punch.gif";
 import skeleton from "../../assets/mikuBuddy/mad-skeleton.gif";
 import mikuDancingPixelArt from "../../assets/mikuBuddy/miku-dance-pixel-art.gif";
+import mikuDancing2 from "../../assets/mikuBuddy/miku-dance.gif";
+import mikuDancing3 from "../../assets/mikuBuddy/hatsune-miku-dance.gif";
+import mikuOuiaCat from "../../assets/mikuBuddy/ouia-cat.gif";
 
 interface MikuBuddyProps {
   isDancing: boolean;
@@ -22,6 +25,7 @@ interface MikuBuddyProps {
 const SKELETON_CHANCE = 0.1;
 const SKELETON_DURATION = 2700;
 const SKELETON_INSTANCES = 2;
+const OUIACAT_DURATION = 4000;
 
 const STOP_DANCING_PHRASES = [
   "Eiii!! Por que parou?!",
@@ -35,6 +39,22 @@ const DANCE_VARIATIONS = [
   MIKU_REACTIONS.DANCING,
   MIKU_REACTIONS.DANCING_MINECRAFT,
   MIKU_REACTIONS.DANCING_PIXELART,
+  MIKU_REACTIONS.DANCING_2,
+  MIKU_REACTIONS.DANCING_3,
+];
+
+// O Konami Code Tradicional
+const KONAMI_CODE = [
+  "ArrowUp",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowLeft",
+  "ArrowRight",
+  "b",
+  "a",
 ];
 
 const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
@@ -47,6 +67,7 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
   const reactionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const audioTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const activeAudiosRef = useRef<HTMLAudioElement[]>([]);
+  const keySequenceRef = useRef<string[]>([]);
 
   const stopAllAudio = useCallback(() => {
     if (audioTimeoutRef.current) {
@@ -81,6 +102,70 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     }, SKELETON_DURATION);
   }, [stopAllAudio]);
 
+  const playOuiaCatSound = useCallback(() => {
+    stopAllAudio();
+
+    const audio = new Audio("/audio/ouia-cat.mp3");
+    audio.volume = 1;
+    audio.play().catch(() => {});
+
+    activeAudiosRef.current = [audio];
+
+    audioTimeoutRef.current = setTimeout(() => {
+      stopAllAudio();
+    }, OUIACAT_DURATION);
+
+    return OUIACAT_DURATION;
+  }, [stopAllAudio]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
+        return;
+      }
+
+      const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      keySequenceRef.current = [...keySequenceRef.current, key];
+
+      if (keySequenceRef.current.length > KONAMI_CODE.length) {
+        keySequenceRef.current.shift();
+      }
+
+      const isKonamiMatch = keySequenceRef.current.every(
+        (val, index) => val === KONAMI_CODE[index],
+      );
+
+      if (
+        keySequenceRef.current.length === KONAMI_CODE.length &&
+        isKonamiMatch
+      ) {
+        keySequenceRef.current = [];
+
+        if (reactionTimeoutRef.current) {
+          clearTimeout(reactionTimeoutRef.current);
+        }
+
+        const ouia_duration = playOuiaCatSound();
+
+        triggerMiku("", MIKU_REACTIONS.OUIA_CAT, ouia_duration);
+
+        reactionTimeoutRef.current = setTimeout(() => {
+          triggerMiku("", MIKU_REACTIONS.IDLE, 0);
+        }, ouia_duration);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [playOuiaCatSound, triggerMiku]);
+
+  /* ===========================
+     🎭 Escolher Dança Variada
+  =========================== */
+
   const getRandomDance = useCallback((): MikuReaction => {
     let next =
       DANCE_VARIATIONS[Math.floor(Math.random() * DANCE_VARIATIONS.length)];
@@ -95,10 +180,17 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     return next;
   }, []);
 
+  /* ===========================
+     🛑 Quando Para de Dançar
+  =========================== */
+
   const handleStopDancing = useCallback(() => {
     if (reactionTimeoutRef.current) {
       clearTimeout(reactionTimeoutRef.current);
     }
+
+    // Não interrompe o easter egg do Ouia Cat se ele estiver tocando
+    if (reaction === MIKU_REACTIONS.OUIA_CAT) return;
 
     const shouldSkeleton = Math.random() < SKELETON_CHANCE;
 
@@ -121,7 +213,7 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
         triggerMiku("", MIKU_REACTIONS.IDLE, 0);
       }, 3000);
     }
-  }, [playSkeletonSound, triggerMiku]);
+  }, [playSkeletonSound, triggerMiku, reaction]);
 
   useEffect(() => {
     if (isDancing && reaction === MIKU_REACTIONS.IDLE) {
@@ -133,14 +225,20 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
   useEffect(() => {
     if (isDancing && !wasDancingRef.current) {
       wasDancingRef.current = true;
-      stopAllAudio();
+
+      // Se estiver tocando o easter egg, não para o som!
+      if (reaction !== MIKU_REACTIONS.OUIA_CAT) {
+        stopAllAudio();
+      }
 
       if (reactionTimeoutRef.current) {
         clearTimeout(reactionTimeoutRef.current);
       }
 
-      const dance = getRandomDance();
-      triggerMiku("", dance, 0);
+      if (reaction !== MIKU_REACTIONS.OUIA_CAT) {
+        const dance = getRandomDance();
+        triggerMiku("", dance, 0);
+      }
 
       return;
     }
@@ -151,9 +249,16 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     }
 
     return () => {
-      stopAllAudio();
+      // stopAllAudio(); // Removi daqui pro OuiaCat não bugar se o player pausar/dar play no fundo
     };
-  }, [isDancing, triggerMiku, handleStopDancing, stopAllAudio, getRandomDance]);
+  }, [
+    isDancing,
+    triggerMiku,
+    handleStopDancing,
+    stopAllAudio,
+    getRandomDance,
+    reaction,
+  ]);
 
   const reactionAssets: Record<MikuReaction, string> = {
     [MIKU_REACTIONS.IDLE]: mikuIdle,
@@ -164,6 +269,10 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     [MIKU_REACTIONS.PUNCH]: mikuPunch,
     [MIKU_REACTIONS.SKELETON]: skeleton,
     [MIKU_REACTIONS.DANCING_PIXELART]: mikuDancingPixelArt,
+    [MIKU_REACTIONS.DANCING_2]: mikuDancing2,
+    [MIKU_REACTIONS.DANCING_3]: mikuDancing3,
+    // Adicionado o Sprite do Ouia Cat
+    [MIKU_REACTIONS.OUIA_CAT]: mikuOuiaCat,
   };
 
   return (

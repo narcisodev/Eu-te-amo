@@ -6,7 +6,10 @@ export const MIKU_REACTIONS = {
   DANCING_MINECRAFT: "dancing-minecraft",
   PUNCH: "punch",
   SKELETON: "skeleton",
+  OUIA_CAT: "ouia-cat",
   DANCING_PIXELART: "dancing-pixelart",
+  DANCING_2: "dancing-2",
+  DANCING_3: "dancing-3",
 } as const;
 
 export type MikuReaction = (typeof MIKU_REACTIONS)[keyof typeof MIKU_REACTIONS];
