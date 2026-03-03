@@ -1,7 +1,6 @@
 import styles from "./styles.module.css";
-import "xp.css/dist/XP.css"; // Mantendo a janela principal com o visual XP
+import "xp.css/dist/XP.css";
 
-// Aqui você preenche a história de vocês!
 const HISTORIA = [
   {
     id: 1,
@@ -62,15 +61,12 @@ const LoveTimeline = () => {
         </p>
       </div>
 
-      {/* Área com barra de rolagem */}
       <div className={styles.scrollArea}>
         <div className={styles.timeline}>
           {HISTORIA.map((evento) => (
             <div key={evento.id} className={styles.event}>
-              {/* A bolinha na linha do tempo */}
               <div className={styles.node} />
 
-              {/* O balão/cartão de texto do evento */}
               <div className={styles.content}>
                 <div className={styles.date}>{evento.date}</div>
                 <h3 className={styles.eventTitle}>{evento.title}</h3>

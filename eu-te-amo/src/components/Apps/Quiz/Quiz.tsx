@@ -45,10 +45,6 @@ const questions: Question[] = [
   },
 ];
 
-/* ============================
-   FRASES VARIADAS
-============================ */
-
 const CORRECT_PHRASES = [
   "Sabia que você acertaria 😌",
   "Issooo!! 💖",
@@ -112,7 +108,6 @@ const LoveQuiz = () => {
       triggerMiku(phrase, MIKU_REACTIONS.PUNCH, 3000);
     }
 
-    // Reação especial se escolher Hatsune Miku
     if (currentQ === 2 && optionIndex === 0) {
       triggerMiku(
         "E-Eu mesma?! 😳 Você tá me testando?",

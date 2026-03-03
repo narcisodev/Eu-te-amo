@@ -1,5 +1,5 @@
 .background {
-  background-image: url("background/windowsxp_background.jpeg");
+  background-image: url("/background/windowsxp_background.jpeg");
   background-size: cover;
   background-position: center;
   height: 100vh;

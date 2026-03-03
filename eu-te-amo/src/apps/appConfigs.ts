@@ -1,16 +1,8 @@
 import type { ComponentType } from "react";
 
-/* ----------------------------
-   IMPORTS DOS COMPONENTES
----------------------------- */
-
 import ReasonsLove from "../components/Apps/Reasons Love/ReasonsLove";
 import Quiz from "../components/Apps/Quiz/Quiz";
 import Computer from "../components/Apps/My Computer/MyComputer";
-
-/* ----------------------------
-   IMPORTS DOS ÍCONES
----------------------------- */
 
 import reasonsIcon from "../assets/icons/love.png";
 import quizIcon from "../assets/icons/quiz.ico";
@@ -18,10 +10,6 @@ import computerIcon from "../assets/icons/my-computer-icon.ico";
 import wmpIcon from "../assets/icons/media-player.png";
 import timelineIcon from "../assets/icons/timeline.ico";
 import Timeline from "../components/Apps/Timeline/Timeline";
-
-/* ----------------------------
-   TIPAGEM
----------------------------- */
 
 export type AppKeys = "reasons" | "quiz" | "computer" | "wmp" | "timeline";
 
@@ -33,10 +21,6 @@ export interface AppConfig {
   Component: ComponentType;
   resizable?: boolean;
 }
-
-/* ----------------------------
-   CONFIG DOS APPS
----------------------------- */
 
 export const APPS: AppConfig[] = [
   {
@@ -76,7 +60,7 @@ export const APPS: AppConfig[] = [
     label: "Media Player",
     title: "Windows Media Player",
     icon: wmpIcon,
-    Component: () => null, // Controlado no App.tsx
+    Component: () => null,
     resizable: true,
   },
 ];

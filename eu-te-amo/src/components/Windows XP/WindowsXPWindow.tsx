@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 
 interface Props {
   title: string;
-  icon?: string; // Nova prop para o caminho do ícone
+  icon?: string;
   children: ReactNode;
   isActive: boolean;
   isMinimized: boolean;
@@ -49,7 +49,6 @@ const WindowsXPWindow = ({
       >
         <div className={`title-bar ${!isActive ? "inactive" : ""}`}>
           <div className={styles.titleContainer}>
-            {/* Ícone da Janela */}
             {icon && <img src={icon} alt="" className={styles.titleIcon} />}
             <div className="title-bar-text">{title}</div>
           </div>

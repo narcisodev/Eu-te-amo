@@ -4,9 +4,6 @@ import styles from "./styles.module.css";
 import { MIKU_REACTIONS } from "../../../context/MikuBuddy/MikuTypes";
 import { useMiku } from "../../../context/MikuBuddy/MikuContext";
 
-// Se triggerMiku e MIKU_REACTIONS vêm de outro arquivo, não esqueça de importar aqui!
-// import { triggerMiku, MIKU_REACTIONS } from "../seu-caminho";
-
 const reasons = [
   "Da felicidade que eu sinto quando você chega em casa",
   "Da sua comida deliciosa que me enche de amor (e barriga)",
@@ -50,13 +47,10 @@ function ReasonCard({ reason, index, isFlipped, onFlip }: ReasonCardProps) {
 }
 
 export default function ReasonsLove() {
-  // useMiku must be called inside a component
   const { triggerMiku } = useMiku();
 
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
 
-  // 🔥 CORREÇÃO: O useEffect agora está DENTRO do componente,
-  // onde ele tem acesso à variável `flippedCards`.
   useEffect(() => {
     if (flippedCards.size === reasons.length && reasons.length > 0) {
       triggerMiku("Eu te amo!!!", MIKU_REACTIONS.HAPPY, 3000);

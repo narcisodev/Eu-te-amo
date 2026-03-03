@@ -13,14 +13,11 @@ import mikuDancing from "../../assets/mikuBuddy/miku-balacing.gif";
 import mikuDancingMinecraft from "../../assets/mikuBuddy/miku-dancing-minecraft.gif";
 import mikuPunch from "../../assets/mikuBuddy/miku-punch.gif";
 import skeleton from "../../assets/mikuBuddy/mad-skeleton.gif";
+import mikuDancingPixelArt from "../../assets/mikuBuddy/miku-dance-pixel-art.gif";
 
 interface MikuBuddyProps {
   isDancing: boolean;
 }
-
-/* ===========================
-   CONFIG
-=========================== */
 
 const SKELETON_CHANCE = 0.1;
 const SKELETON_DURATION = 2700;
@@ -37,6 +34,7 @@ const STOP_DANCING_PHRASES = [
 const DANCE_VARIATIONS = [
   MIKU_REACTIONS.DANCING,
   MIKU_REACTIONS.DANCING_MINECRAFT,
+  MIKU_REACTIONS.DANCING_PIXELART,
 ];
 
 const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
@@ -49,10 +47,6 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
   const reactionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const audioTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const activeAudiosRef = useRef<HTMLAudioElement[]>([]);
-
-  /* ===========================
-     🔊 Stop All Audio
-  =========================== */
 
   const stopAllAudio = useCallback(() => {
     if (audioTimeoutRef.current) {
@@ -67,10 +61,6 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
 
     activeAudiosRef.current = [];
   }, []);
-
-  /* ===========================
-     🔊 Play Skeleton
-  =========================== */
 
   const playSkeletonSound = useCallback(() => {
     stopAllAudio();
@@ -91,10 +81,6 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     }, SKELETON_DURATION);
   }, [stopAllAudio]);
 
-  /* ===========================
-     🎭 Escolher Dança Variada
-  =========================== */
-
   const getRandomDance = useCallback((): MikuReaction => {
     let next =
       DANCE_VARIATIONS[Math.floor(Math.random() * DANCE_VARIATIONS.length)];
@@ -108,10 +94,6 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     lastDanceRef.current = next;
     return next;
   }, []);
-
-  /* ===========================
-     🛑 Quando Para de Dançar
-  =========================== */
 
   const handleStopDancing = useCallback(() => {
     if (reactionTimeoutRef.current) {
@@ -141,9 +123,6 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     }
   }, [playSkeletonSound, triggerMiku]);
 
-  /* ===========================
-     🤖 O CÉREBRO DA MIKU (Recuperar o estado)
-  =========================== */
   useEffect(() => {
     if (isDancing && reaction === MIKU_REACTIONS.IDLE) {
       const dance = getRandomDance();
@@ -151,12 +130,7 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     }
   }, [isDancing, reaction, triggerMiku, getRandomDance]);
 
-  /* ===========================
-     🎵 Effect Principal (Vigia a música)
-  =========================== */
-
   useEffect(() => {
-    // 🎵 Começou a tocar música
     if (isDancing && !wasDancingRef.current) {
       wasDancingRef.current = true;
       stopAllAudio();
@@ -165,15 +139,12 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
         clearTimeout(reactionTimeoutRef.current);
       }
 
-      // 🔥 FIX DEFINITIVO:
-      // Não espera mais ela ficar IDLE. A música tocou, a dança é imediata!
       const dance = getRandomDance();
       triggerMiku("", dance, 0);
 
       return;
     }
 
-    // 🛑 Parou de tocar música
     if (!isDancing && wasDancingRef.current) {
       wasDancingRef.current = false;
       handleStopDancing();
@@ -182,17 +153,7 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     return () => {
       stopAllAudio();
     };
-  }, [
-    isDancing,
-    triggerMiku,
-    handleStopDancing,
-    stopAllAudio,
-    getRandomDance, // Removido o 'reaction' daqui para não engasgar o hook
-  ]);
-
-  /* ===========================
-     SPRITES
-  =========================== */
+  }, [isDancing, triggerMiku, handleStopDancing, stopAllAudio, getRandomDance]);
 
   const reactionAssets: Record<MikuReaction, string> = {
     [MIKU_REACTIONS.IDLE]: mikuIdle,
@@ -202,11 +163,8 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     [MIKU_REACTIONS.DANCING_MINECRAFT]: mikuDancingMinecraft,
     [MIKU_REACTIONS.PUNCH]: mikuPunch,
     [MIKU_REACTIONS.SKELETON]: skeleton,
+    [MIKU_REACTIONS.DANCING_PIXELART]: mikuDancingPixelArt,
   };
-
-  /* ===========================
-     RENDER
-  =========================== */
 
   return (
     <Draggable nodeRef={nodeRef} bounds="parent">

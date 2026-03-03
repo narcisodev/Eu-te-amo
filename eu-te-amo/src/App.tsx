@@ -35,15 +35,10 @@ function DesktopContent() {
   const { triggerMiku } = useMiku();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Boot sound
   useEffect(() => {
     audioRef.current = new Audio("/audio/windows-xp-boot.mp3");
     audioRef.current.load();
   }, []);
-
-  // ---------------------------
-  // APP CONTROLS
-  // ---------------------------
 
   const openApp = (id: AppKeys) => {
     if (id === "wmp" && !currentMusic) {
@@ -106,10 +101,6 @@ function DesktopContent() {
     }, 1500);
   };
 
-  // ---------------------------
-  // STAGES
-  // ---------------------------
-
   if (stage === "boot") {
     return <BootScreen onFinish={() => setStage("welcome")} />;
   }
@@ -117,10 +108,6 @@ function DesktopContent() {
   if (stage === "welcome") {
     return <WelcomeScreen onLogin={handleLogin} />;
   }
-
-  // ---------------------------
-  // DESKTOP
-  // ---------------------------
 
   const isMikuDancing =
     openedAppIds.includes("wmp") &&
