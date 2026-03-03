@@ -107,6 +107,11 @@
   height: 18px;
 }
 
+.fixedLabel {
+  color: #fff;
+  padding: 0 2px;
+}
+
 .divider {
   width: 2px;
   height: 80%;

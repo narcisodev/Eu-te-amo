@@ -34,7 +34,7 @@ const Taskbar = ({
     return () => clearInterval(timer);
   }, []);
 
-  const FIXED_APPS: AppKeys[] = ["quiz"];
+  const FIXED_APPS: AppKeys[] = ["quiz", "reasons"];
 
   return (
     <div className={styles.xpTaskbar}>
@@ -44,19 +44,24 @@ const Taskbar = ({
       </button>
 
       <div className={styles.quickLaunch}>
-        {FIXED_APPS.map((id) => (
-          <button
-            key={id}
-            className={styles.fixedApp}
-            onClick={() => onOpenApp(id)}
-          >
-            <img
-              src={APPS.find((a) => a.id === id)?.icon}
-              alt=""
-              className={styles.fixedIcon}
-            />
-          </button>
-        ))}
+        {FIXED_APPS.map((id) => {
+          const app = APPS.find((a) => a.id === id); // Busca as informações do App fixo
+
+          return (
+            <button
+              key={id}
+              className={styles.fixedApp}
+              onClick={() => onOpenApp(id)}
+              title={app?.label} // Adiciona aquela dica clássica ao passar o mouse!
+            >
+              <img src={app?.icon} alt="" className={styles.fixedIcon} />
+              {/* Aqui está o nome do app na parte fixa! 
+                  Se quiser só o espaço vazio como fez nos apps abertos, 
+                  basta apagar o {app?.label} de dentro do span. */}
+              <span className={styles.fixedLabel}>{app?.label}</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className={styles.divider} />
@@ -73,7 +78,9 @@ const Taskbar = ({
               onClick={() => onToggleMinimize(appId)}
             >
               <img src={displayIcon} alt="" className={styles.taskItemIcon} />
-              <span className={styles.taskItemLabel}>{app?.label}</span>
+
+              {/* O span vazio para manter o espaço sem texto nos apps abertos */}
+              <span className={styles.taskItemLabel}></span>
             </div>
           );
         })}
