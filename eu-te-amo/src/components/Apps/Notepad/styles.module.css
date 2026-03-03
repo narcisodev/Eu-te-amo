@@ -3,11 +3,10 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background-color: #ece9d8; /* Fundo bege clássico */
+  background-color: #ece9d8;
   font-family: "Tahoma", sans-serif;
 }
 
-/* Barra de menus clássica do XP */
 .menuBar {
   display: flex;
   gap: 12px;
@@ -29,20 +28,16 @@
   color: #ffffff;
 }
 
-/* -------------------------
-   SISTEMA DE ABAS (TABS)
-------------------------- */
 .tabsContainer {
   display: flex;
   align-items: flex-end;
   background-color: #ece9d8;
   padding: 4px 4px 0 4px;
-  border-bottom: 1px solid #848584; /* Linha que divide as abas do texto */
+  border-bottom: 1px solid #848584;
   overflow-x: auto;
   gap: 2px;
 }
 
-/* Esconde a barra de rolagem das abas */
 .tabsContainer::-webkit-scrollbar {
   height: 0px;
 }

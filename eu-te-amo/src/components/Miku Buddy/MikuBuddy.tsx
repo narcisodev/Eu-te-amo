@@ -43,7 +43,6 @@ const DANCE_VARIATIONS = [
   MIKU_REACTIONS.DANCING_3,
 ];
 
-// O Konami Code Tradicional
 const KONAMI_CODE = [
   "ArrowUp",
   "ArrowUp",
@@ -162,10 +161,6 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [playOuiaCatSound, triggerMiku]);
 
-  /* ===========================
-     🎭 Escolher Dança Variada
-  =========================== */
-
   const getRandomDance = useCallback((): MikuReaction => {
     let next =
       DANCE_VARIATIONS[Math.floor(Math.random() * DANCE_VARIATIONS.length)];
@@ -180,16 +175,11 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     return next;
   }, []);
 
-  /* ===========================
-     🛑 Quando Para de Dançar
-  =========================== */
-
   const handleStopDancing = useCallback(() => {
     if (reactionTimeoutRef.current) {
       clearTimeout(reactionTimeoutRef.current);
     }
 
-    // Não interrompe o easter egg do Ouia Cat se ele estiver tocando
     if (reaction === MIKU_REACTIONS.OUIA_CAT) return;
 
     const shouldSkeleton = Math.random() < SKELETON_CHANCE;
@@ -226,7 +216,6 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     if (isDancing && !wasDancingRef.current) {
       wasDancingRef.current = true;
 
-      // Se estiver tocando o easter egg, não para o som!
       if (reaction !== MIKU_REACTIONS.OUIA_CAT) {
         stopAllAudio();
       }
@@ -248,9 +237,7 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
       handleStopDancing();
     }
 
-    return () => {
-      // stopAllAudio(); // Removi daqui pro OuiaCat não bugar se o player pausar/dar play no fundo
-    };
+    return () => {};
   }, [
     isDancing,
     triggerMiku,
@@ -271,7 +258,6 @@ const MikuBuddy = ({ isDancing }: MikuBuddyProps) => {
     [MIKU_REACTIONS.DANCING_PIXELART]: mikuDancingPixelArt,
     [MIKU_REACTIONS.DANCING_2]: mikuDancing2,
     [MIKU_REACTIONS.DANCING_3]: mikuDancing3,
-    // Adicionado o Sprite do Ouia Cat
     [MIKU_REACTIONS.OUIA_CAT]: mikuOuiaCat,
   };
 

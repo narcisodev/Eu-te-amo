@@ -1,13 +1,10 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
 
-// 🌟 IMPORTANTE: Lembre-se de importar aqui os GIFs da Miku!
-// Substitua pelos caminhos corretos da sua pasta assets se necessário.
 import mikuGif1 from "../../../assets/mikuBuddy/miku-happy.gif";
 import mikuGif2 from "../../../assets/mikuBuddy/miku-dance.gif";
 import mikuGif3 from "../../../assets/mikuBuddy/miku-punch.gif";
 
-// Lista com os GIFs para o sorteio na "Ajuda"
 const MIKU_GIFS = [mikuGif1, mikuGif2, mikuGif3];
 
 const initialPoem = ``;
@@ -18,7 +15,6 @@ interface NoteFile {
   content: string;
 }
 
-// 🔥 A CORREÇÃO ESTÁ AQUI: O '?' diz ao TypeScript que o onClose é opcional.
 interface NotepadProps {
   onClose?: () => void;
 }
@@ -32,9 +28,6 @@ const Notepad = ({ onClose }: NotepadProps) => {
 
   const activeFile = files.find((f) => f.id === activeId) || files[0];
 
-  /* =================================
-     CRIAR NOVO ARQUIVO
-  ================================= */
   const handleCreateFile = () => {
     const newId = Date.now().toString();
     const newFile = {
@@ -47,15 +40,11 @@ const Notepad = ({ onClose }: NotepadProps) => {
     setActiveId(newId);
   };
 
-  /* =================================
-     FECHAR ARQUIVO (ABA)
-  ================================= */
   const handleCloseFile = (idToClose: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
 
     const remainingFiles = files.filter((f) => f.id !== idToClose);
 
-    // 🔥 E AQUI ESTÁ A PROTEÇÃO: Se fechou a última aba, verificamos se onClose existe antes de chamar.
     if (remainingFiles.length === 0) {
       if (onClose) {
         onClose();
@@ -68,9 +57,6 @@ const Notepad = ({ onClose }: NotepadProps) => {
     }
   };
 
-  /* =================================
-     AÇÕES DO MENU SUPERIOR
-  ================================= */
   const handleClearText = () => {
     setFiles((prev) =>
       prev.map((f) => (f.id === activeId ? { ...f, content: "" } : f)),
@@ -78,10 +64,7 @@ const Notepad = ({ onClose }: NotepadProps) => {
   };
 
   const handleHelp = () => {
-    // Sorteia um GIF aleatório da lista
     const randomGif = MIKU_GIFS[Math.floor(Math.random() * MIKU_GIFS.length)];
-
-    // Cria a tag HTML da imagem
     const mikuImageHtml = `<br/><br/><img src="${randomGif}" alt="Miku" class="${styles.mikuSticker}" /><br/>`;
 
     setFiles((prev) =>
@@ -91,9 +74,6 @@ const Notepad = ({ onClose }: NotepadProps) => {
     );
   };
 
-  /* =================================
-     EDITAR TÍTULO
-  ================================= */
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFiles((prevFiles) =>
       prevFiles.map((f) =>
@@ -102,9 +82,6 @@ const Notepad = ({ onClose }: NotepadProps) => {
     );
   };
 
-  /* =================================
-     SALVAR CONTEÚDO AO DIGITAR (ContentEditable)
-  ================================= */
   const handleContentBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     const newHtml = e.currentTarget.innerHTML;
     setFiles((prevFiles) =>
@@ -116,7 +93,6 @@ const Notepad = ({ onClose }: NotepadProps) => {
 
   return (
     <div className={`window-body ${styles.container}`}>
-      {/* Barra de Menus Funcional */}
       <div className={styles.menuBar}>
         <span
           className={styles.menuItem}
@@ -148,7 +124,6 @@ const Notepad = ({ onClose }: NotepadProps) => {
         </span>
       </div>
 
-      {/* Navegação de Abas (Arquivos) */}
       <div className={styles.tabsContainer}>
         {files.map((file) => {
           const isActive = file.id === activeId;
@@ -190,7 +165,6 @@ const Notepad = ({ onClose }: NotepadProps) => {
         </button>
       </div>
 
-      {/* Div contentEditable que aceita GIFs e texto misturados! */}
       <div
         key={activeFile.id}
         className={styles.textArea}

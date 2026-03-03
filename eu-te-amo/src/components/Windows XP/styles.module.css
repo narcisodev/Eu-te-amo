@@ -11,7 +11,6 @@
   min-width: 300px;
   min-height: 200px;
 
-  /* TRAVA DE SEGURANÇA: Impede extrapolar a tela e a Taskbar (45px) */
   max-width: calc(100vw - 50px);
   max-height: calc(100vh - 45px - 50px);
 

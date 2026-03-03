@@ -21,7 +21,6 @@ export type AppKeys =
   | "timeline"
   | "notepad";
 
-// 🔥 1. Adicionamos a interface que define as props dos apps (o ? deixa opcional pros apps que não usam)
 export interface BaseAppProps {
   onClose?: () => void;
 }
@@ -32,7 +31,6 @@ export interface AppConfig {
   title: string;
   icon: string;
 
-  // 🔥 2. Trocamos o <any> por <BaseAppProps>. O erro do ESLint some na hora!
   Component: ComponentType<BaseAppProps>;
 
   resizable?: boolean;
