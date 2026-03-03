@@ -164,6 +164,7 @@ const Minesweeper = () => {
 
   useEffect(() => {
     initBoard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [difficulty]);
 
   useEffect(() => {
